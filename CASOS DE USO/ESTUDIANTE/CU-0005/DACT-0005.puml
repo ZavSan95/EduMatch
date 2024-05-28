@@ -1,0 +1,41 @@
+@startuml
+actor Estudiante
+boundary "ReservarTurnoView" as View
+control "EstudiantesController" as Controller
+entity "Profesor" as Profesor
+database "ReservasRepository" as Repository
+
+== Flujo principal ==
+Estudiante -> View : Acceder al perfil del profesor deseado
+activate View
+View -> Controller : Solicitar fechas y horas disponibles para la reserva
+activate Controller
+Controller -> Profesor : Solicitar fechas y horas disponibles para la reserva
+activate Profesor
+Profesor --> Controller : Fechas y horas disponibles
+deactivate Profesor
+Controller --> View : Mostrar fechas y horas disponibles para la reserva
+deactivate Controller
+Estudiante -> View : Seleccionar fecha y hora para la reserva
+View -> Controller : Enviar fecha y hora seleccionada
+activate Controller
+Controller -> Repository : Confirmar disponibilidad de la fecha y hora seleccionada
+activate Repository
+Repository --> Controller : Disponibilidad confirmada
+deactivate Repository
+Controller -> Repository : Registrar reserva
+Repository --> Controller : Confirmación de reserva
+deactivate Repository
+Controller -> View : Mostrar confirmación de reserva
+deactivate Controller
+View -> Estudiante : Mostrar confirmación de reserva
+
+== Flujo alternativo ==
+alt Horario no disponible
+    Controller -> View : Mostrar mensaje de error
+    activate View
+    View -> Estudiante : Mostrar mensaje de error y volver al paso 3 del flujo principal
+    deactivate View
+end
+
+@enduml

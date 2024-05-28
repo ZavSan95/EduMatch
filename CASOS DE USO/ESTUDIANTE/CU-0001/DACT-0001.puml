@@ -1,0 +1,28 @@
+@startuml
+actor Estudiante
+boundary "CrearPerfilEstudianteView" as View
+control "EstudiantesController" as Controller
+entity "Estudiante" as Model
+database "EstudiantesRepository" as Repository
+
+== Flujo principal ==
+Estudiante -> View : Seleccionar opción para crear perfil
+View -> Controller : Solicitar formulario de creación de perfil
+Controller -> View : Mostrar formulario de creación de perfil
+Estudiante -> View : Completar formulario con información personal
+View -> Controller : Enviar formulario completo
+Controller -> Model : Validar información
+Model --> Controller : Información válida
+Controller -> Repository : Crear perfil del estudiante
+Repository --> Controller : Confirmación de creación
+Controller -> View : Mostrar mensaje de confirmación
+View -> Estudiante : Mostrar mensaje de perfil creado exitosamente
+
+== Flujo alternativo ==
+alt Información no válida
+    Model --> Controller : Información no válida
+    Controller -> View : Mostrar mensaje de error
+    View -> Estudiante : Mostrar mensaje de error y volver al formulario
+end
+
+@enduml

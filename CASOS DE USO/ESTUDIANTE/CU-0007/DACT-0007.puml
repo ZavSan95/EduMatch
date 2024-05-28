@@ -1,0 +1,21 @@
+@startuml
+actor Estudiante
+boundary "View" as EduMatch
+control Controladora
+entity Profesor
+
+Estudiante -> EduMatch --++:  Seleccionar profesor
+EduMatch-> Controladora --++: Envia los datos para buscar
+Controladora->Profesor --++: Buscar profesor
+Profesor-> Controladora --++:
+Controladora->EduMatch --: Muestra perfil del profesor
+
+Estudiante -> EduMatch --: Calificar profesor (enviar reseña y calificación)
+EduMatch-> Controladora --++: Envia los datos
+Controladora->Profesor --++: Valida datos
+Profesor-> Controladora --++:
+Controladora->Profesor --++: Guarda la calificacion
+Profesor-> Controladora --++:
+Controladora->EduMatch --: Confirmacion de exito
+
+@enduml

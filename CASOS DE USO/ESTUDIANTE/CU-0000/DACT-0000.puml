@@ -1,0 +1,46 @@
+@startuml
+actor Estudiante
+boundary "ModificarPerfilEstudianteView" as View
+control "EstudiantesController" as Controller
+entity "Estudiante" as Model
+database "EstudiantesRepository" as Repository
+
+== Flujo principal ==
+Estudiante -> View : Acceder a la opción para modificar perfil
+activate View
+View -> Controller : Solicitar perfil existente del estudiante
+activate Controller
+Controller -> Repository : Cargar perfil existente del estudiante
+activate Repository
+Repository --> Controller : Devolver perfil del estudiante
+deactivate Repository
+Controller --> View : Mostrar perfil del estudiante
+deactivate Controller
+Estudiante -> View : Realizar modificaciones en el perfil
+View -> Controller : Enviar perfil modificado
+activate Controller
+Controller -> Model : Validar información modificada
+activate Model
+Model --> Controller : Información válida
+deactivate Model
+Controller -> Repository : Actualizar perfil del estudiante
+activate Repository
+Repository --> Controller : Confirmación de actualización
+deactivate Repository
+Controller -> View : Mostrar mensaje de confirmación
+deactivate Controller
+View -> Estudiante : Mostrar mensaje de perfil modificado exitosamente
+deactivate View
+
+== Flujo alternativo ==
+alt Información no válida
+    activate Model
+    Model --> Controller : Información no válida
+    deactivate Model
+    Controller -> View : Mostrar mensaje de error
+    activate View
+    View -> Estudiante : Mostrar mensaje de error y volver a las modificaciones
+    deactivate View
+end
+
+@enduml

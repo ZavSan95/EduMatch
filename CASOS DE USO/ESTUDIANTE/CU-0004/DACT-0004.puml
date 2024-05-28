@@ -1,0 +1,34 @@
+@startuml
+actor Estudiante
+boundary "BuscarProfesorView" as View
+control "EstudiantesController" as Controller
+entity "Profesor" as Profesor
+database "ProfesoresRepository" as Repository
+
+== Flujo principal ==
+Estudiante -> View : Acceder a la función de búsqueda de profesores
+activate View
+View -> Controller : Solicitar formulario de búsqueda de profesores
+activate Controller
+Controller -> View : Mostrar formulario de búsqueda de profesores
+deactivate Controller
+Estudiante -> View : Ingresar criterios de búsqueda
+View -> Controller : Enviar criterios de búsqueda
+activate Controller
+Controller -> Repository : Realizar búsqueda de profesores
+activate Repository
+Repository --> Controller : Lista de resultados de profesores
+deactivate Repository
+Controller -> View : Mostrar lista de resultados de profesores
+deactivate Controller
+View -> Estudiante : Mostrar lista de resultados de profesores
+
+== Flujo alternativo ==
+alt No se encontraron profesores
+    Estudiante -> View : Examinar perfiles de profesores
+    View -> Estudiante : Mostrar mensaje de que no se encontraron profesores
+else
+    Estudiante -> View : Examinar perfiles de profesores
+    View -> Estudiante : Mostrar lista de resultados de profesores
+end
+@enduml

@@ -1,0 +1,36 @@
+@startuml
+actor Estudiante
+boundary "EliminarPerfilEstudianteView" as View
+control "EstudiantesController" as Controller
+database "EstudiantesRepository" as Repository
+
+== Flujo principal ==
+Estudiante -> View : Acceder a la opción para eliminar perfil
+activate View
+View -> Controller : Solicitar confirmación de eliminación
+activate Controller
+Controller -> View : Mostrar ventana de confirmación
+deactivate Controller
+Estudiante -> View : Confirmar eliminación del perfil
+View -> Controller : Enviar confirmación
+activate Controller
+Controller -> Repository : Eliminar perfil del estudiante
+activate Repository
+Repository --> Controller : Confirmación de eliminación
+deactivate Repository
+Controller -> View : Mostrar mensaje de confirmación
+deactivate Controller
+View -> Estudiante : Mostrar mensaje de perfil eliminado exitosamente
+deactivate View
+
+== Flujo alternativo ==
+alt El estudiante cancela la operación
+    Estudiante -> View : Cancelar operación
+    View -> Controller : Enviar cancelación
+    activate Controller
+    Controller -> View : Mostrar mensaje de cancelación
+    deactivate Controller
+    View -> Estudiante : Mostrar mensaje de cancelación y volver a la opción de eliminar perfil
+end
+
+@enduml

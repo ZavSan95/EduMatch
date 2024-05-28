@@ -1,0 +1,73 @@
+@startuml
+actor Estudiante
+boundary "CancelarTurnoView" as View
+control "EstudiantesController" as Controller
+entity "Turno" as Turno
+database "ReservasRepository" as Repository
+participant Profesor
+
+== Flujo principal ==
+Estudiante -> View : Acceder a la sección de sus turnos reservados
+activate View
+View -> Controller : Solicitar lista de turnos reservados
+activate Controller
+Controller -> Repository : Obtener lista de turnos reservados del estudiante
+activate Repository
+Repository --> Controller : Lista de turnos reservados
+deactivate Repository
+Controller --> View : Mostrar lista de turnos reservados
+deactivate Controller
+Estudiante -> View : Seleccionar turno a cancelar
+View -> Controller : Enviar turno seleccionado
+activate Controller
+Controller -> Repository : Obtener detalles del turno seleccionado
+activate Repository
+Repository --> Controller : Detalles del turno
+deactivate Repository
+Controller --> View : Mostrar detalles del turno y opción para cancelarlo
+deactivate Controller
+Estudiante -> View : Confirmar cancelación del turno
+View -> Controller : Enviar confirmación de cancelación
+activate Controller
+Controller -> Repository : Cancelar turno seleccionado
+activate Repository
+Repository --> Controller : Confirmación de cancelación
+deactivate Repository
+Controller -> Repository : Eliminar turno de la lista de turnos reservados del estudiante
+activate Repository
+Repository --> Controller : Confirmación de eliminación
+deactivate Repository
+Controller -> Profesor : Notificar cancelación del turno
+activate Profesor
+Profesor --> Controller : Confirmación de notificación
+deactivate Profesor
+Controller --> View : Mostrar mensaje de cancelación exitosa
+deactivate Controller
+View -> Estudiante : Mostrar mensaje de cancelación exitosa
+
+== Flujo alternativo ==
+alt Cancelación dentro de la ventana de tiempo especificada
+    Estudiante -> View : Seleccionar turno a cancelar dentro de la ventana de tiempo especificada
+    View -> Controller : Enviar turno seleccionado
+    activate Controller
+    Controller -> Repository : Cancelar turno seleccionado dentro de la ventana de tiempo especificada
+    activate Repository
+    Repository --> Controller : Confirmación de cancelación dentro de la ventana de tiempo especificada
+    deactivate Repository
+    Controller -> Repository : Eliminar turno de la lista de turnos reservados del estudiante
+    activate Repository
+    Repository --> Controller : Confirmación de eliminación
+    deactivate Repository
+    Controller -> Profesor : Notificar cancelación del turno dentro de la ventana de tiempo especificada
+    activate Profesor
+    Profesor --> Controller : Confirmación de notificación
+    deactivate Profesor
+    Controller --> View : Mostrar mensaje de cancelación exitosa dentro de la ventana de tiempo especificada
+    deactivate Controller
+    View -> Estudiante : Mostrar mensaje de cancelación exitosa dentro de la ventana de tiempo especificada
+else
+    Estudiante -> View : Cancelación fuera de la ventana de tiempo especificada
+    View -> Estudiante : Mostrar mensaje de error indicando que no se puede cancelar el turno fuera de la ventana de tiempo especificada
+end
+
+@enduml
