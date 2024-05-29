@@ -1,0 +1,27 @@
+@startuml
+|Estudiante|
+start
+:Accede al perfil del profesor deseado;
+:Selecciona la opción para reservar un turno;
+|Sistema|
+:Mostrar fechas y horas disponibles para la reserva;
+|Estudiante|
+repeat
+    :Elige una fecha y hora para la reserva;
+    if (Confirma la reserva?) then (Sí)
+        |Sistema|
+        :Enviar notificación al estudiante y al profesor;
+        :Mostrar mensaje de confirmación;
+        :Pregunta si desea hacer otra reserva?;
+        if (Sí) then (Sí)
+            :Mostrar fechas y horas disponibles para la reserva;
+        else (No)
+            stop
+        endif
+    else (No)
+        |Estudiante|
+        :Modificar la reserva;
+    endif
+repeat while (Reserva no confirmada)
+stop
+@enduml

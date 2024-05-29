@@ -1,0 +1,16 @@
+@startuml
+|Administrador|
+start
+:Accede a la comunidad general de EduMatch;
+:Selecciona opción para cargar actividad;
+|Sistema|
+:Verifica actividad planificada;
+:Espera parámetros de la actividad;
+|Administrador|
+:Establece los parámetros de la actividad;
+:Confirma la carga de la actividad;
+|Sistema|
+:Genera actividad;
+:Disponible para la comunidad;
+stop
+@enduml

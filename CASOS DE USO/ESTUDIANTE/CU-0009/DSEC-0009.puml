@@ -1,0 +1,28 @@
+@startuml
+actor Estudiante
+boundary "ComunidadView" as View
+control "ComunidadController" as Controller
+entity "Posteo" as Post
+database "PosteosRepository" as Repository
+
+== Flujo principal ==
+Estudiante -> View --++: Acceder a la sección de comunidad
+View -> Controller --++: Solicitar formulario de creación de posteo
+Controller -> View --++: Mostrar formulario de creación de posteo
+Estudiante -> View --++: Ingresar contenido del posteo y enviar
+View -> Controller --++: Enviar datos del posteo
+Controller -> Post --++: Validar contenido del posteo
+Post -> Controller --++: Contenido válido
+Controller -> Repository --++: Registrar nuevo posteo
+Repository -> Controller --++: Confirmación de registro
+Controller -> View --++: Confirmación de creación del posteo
+View -> Estudiante --++: Mostrar confirmación de posteo creado
+
+== Flujo alternativo ==
+
+alt [Conte Contenido del posteo excede el límite de caracteres permitidos]
+    Post -> Controller --++: Contenido no válido
+    Controller -> View --++: Mostrar mensaje de error
+    View -> Estudiante --++: Mostrar mensaje de error y volver al formulario
+end
+@enduml

@@ -1,0 +1,30 @@
+@startuml
+actor Estudiante
+boundary "RecuperarContrasenaView" as View
+control "RecuperarContrasenaController" as Controller
+entity "Usuario" as Usuario
+database "UsuariosRepository" as Repository
+
+== Flujo principal ==
+Estudiante -> View --++: Acceder a la función de recuperación de contraseña
+View -> Controller --++: Solicitar correo electrónico asociado
+Estudiante -> View --++: Ingresar correo electrónico y enviar
+View -> Controller --++: Enviar correo electrónico
+Controller -> Usuario --++: Validar correo electrónico
+Usuario -> Controller --++: Correo electrónico válido
+Controller -> Repository --++: Generar y enviar enlace de restablecimiento
+Repository -> Controller --++: Confirmación de envío
+Controller -> View --++: Confirmación de instrucciones enviadas
+View -> Estudiante --++: Mostrar confirmación de envío
+
+== Flujo alternativo ==
+
+alt [Correo Correo electrónico no llega a tiempo]
+    Estudiante -> View --++: Reintentar recuperación
+    View -> Controller --++: Reintentar envío
+    Controller -> Repository --++: Generar y enviar nuevo enlace
+    Repository -> Controller --++: Confirmación de nuevo envío
+    Controller -> View --++: Confirmación de instrucciones enviadas nuevamente
+    View -> Estudiante --++: Mostrar confirmación de nuevo envío
+end
+@enduml

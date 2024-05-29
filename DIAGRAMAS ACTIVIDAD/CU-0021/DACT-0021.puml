@@ -1,0 +1,16 @@
+@startuml
+|Profesor|
+start
+:Accede a la lista de alumnos asociados a un curso o sesión de tutoría;
+:Selecciona al alumno que desea calificar;
+|Sistema|
+if (Cancelar calificación?) then (Sí)
+  :Descarta los cambios y vuelve al estado anterior;
+else (No)
+  :Asigna una calificación al alumno según los criterios establecidos;
+  |Sistema|
+  :Guarda la calificación asignada;
+  :La calificación del alumno ha sido registrada correctamente en la plataforma y está disponible para su consulta;
+endif
+stop
+@enduml

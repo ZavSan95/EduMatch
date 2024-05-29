@@ -1,0 +1,22 @@
+@startuml
+actor Estudiante
+boundary "HistorialTransaccionesView" as View
+control "TransaccionesController" as Controller
+entity "Transaccion" as Transaccion
+database "TransaccionesRepository" as Repository
+
+== Flujo principal ==
+Estudiante -> View --++: Acceder a la función de historial de transacciones
+View -> Controller --++: Solicitar historial de transacciones
+Controller -> Repository --++: Obtener datos del historial
+Repository -> Controller --++: Enviar datos de transacciones
+Controller -> View --++: Mostrar historial de transacciones
+View -> Estudiante --++: Mostrar historial de transacciones
+
+== Flujo alternativo ==
+
+alt [his Historial de transacciones está vacío]
+    Controller -> View --++: Mostrar mensaje de historial vacío
+    View -> Estudiante --++: Mostrar mensaje de historial vacío
+end
+@enduml

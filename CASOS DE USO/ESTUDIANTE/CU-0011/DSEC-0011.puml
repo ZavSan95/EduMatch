@@ -1,0 +1,34 @@
+@startuml
+actor Estudiante
+boundary "GestionarPerfilEstudianteView" as View
+control "EstudiantesController" as Controller
+entity "Estudiante" as Model
+database "EstudiantesRepository" as Repository
+
+== Flujo principal ==
+Estudiante -> View --++: Acceder a la función de gestión de perfil
+View -> Controller --++: Solicitar información del perfil
+Controller -> Repository --++: Obtener datos del perfil
+Repository -> Controller --++: Enviar datos del perfil
+Controller -> View --++: Mostrar datos del perfil
+
+Estudiante -> View --++: Seleccionar opción para editar perfil
+View -> Controller --++: Solicitar formulario de edición
+Controller -> View --++: Mostrar formulario de edición
+Estudiante -> View --++: Realizar cambios en el perfil y enviar
+View -> Controller --++: Enviar datos modificados
+Controller -> Model --++: Validar información modificada
+Model -> Controller --++: Información válida
+Controller -> Repository --++: Actualizar datos del perfil
+Repository -> Controller --++: Confirmación de actualización
+Controller -> View --++: Confirmación de cambios
+View -> Estudiante --++: Mostrar confirmación de cambios realizados
+
+== Flujo alternativo ==
+
+alt [Est Estudiante decide cancelar la edición]
+    Estudiante -> View --++: Cancelar edición
+    View -> Controller --++: Cancelar cambios
+    Controller -> View --++: Mostrar datos sin cambios
+end
+@enduml

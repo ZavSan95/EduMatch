@@ -1,0 +1,27 @@
+@startuml
+actor Profesor
+boundary "CargarFormacionView" as View
+control "ProfesoresController" as Controller
+entity "Formacion" as Formacion
+database "FormacionRepository" as Repository
+
+== Flujo principal ==
+Profesor -> View --++: Acceder a la sección de carga de formación académica
+View -> Controller --++: Solicitar formulario de carga de formación
+Controller -> View --++: Mostrar formulario de carga de formación
+Profesor -> View --++: Seleccionar archivo y cargar documento
+View -> Controller --++: Enviar documento y descripción
+Controller -> Formacion --++: Validar documento
+Formacion -> Controller --++: Documento válido
+Controller -> Repository --++: Registrar formación académica
+Repository -> Controller --++: Confirmación de registro
+Controller -> View --++: Confirmación de carga realizada
+View -> Profesor --++: Mostrar confirmación de carga realizada
+
+== Flujo alternativo ==
+alt [A Archivo no cumple con los requisitos especificados]
+    Formacion -> Controller --++: Documento no válido
+    Controller -> View --++: Mostrar mensaje de error y solicitar recarga
+    View -> Profesor --++: Mostrar mensaje de error y volver a cargar documento
+end
+@enduml

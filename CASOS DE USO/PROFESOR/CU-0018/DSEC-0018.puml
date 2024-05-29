@@ -1,0 +1,35 @@
+@startuml
+actor Administrador
+boundary "ModificarProfesorView" as View
+control "ProfesoresController" as Controller
+entity "Profesor" as Model
+database "ProfesoresRepository" as Repository
+
+== Flujo principal ==
+Administrador -> View --++: Acceder a la sección de modificación de profesor
+View -> Controller --++: Solicitar lista de profesores
+Controller -> Repository --++: Obtener lista de profesores
+Repository -> Controller --++: Enviar lista de profesores
+Controller -> View --++: Mostrar lista de profesores
+Administrador -> View --++: Seleccionar profesor a modificar
+View -> Controller --++: Solicitar información del profesor
+Controller -> Repository --++: Obtener información del profesor
+Repository -> Controller --++: Enviar información del profesor
+Controller -> View --++: Mostrar información del profesor
+Administrador -> View --++: Realizar modificaciones
+View -> Controller --++: Enviar información modificada
+Controller -> Model --++: Validar información modificada
+Model -> Controller --++: Información válida
+Controller -> Repository --++: Actualizar información del profesor
+Repository -> Controller --++: Confirmación de actualización
+Controller -> View --++: Confirmación de cambios realizados
+View -> Administrador --++: Mostrar confirmación de cambios realizados
+
+== Flujo alternativo ==
+alt [A Administrador decide cancelar la modificación]
+    Administrador -> View --++: Cancelar modificación
+    View -> Controller --++: Solicitar cancelación
+    Controller -> View --++: Confirmación de cancelación
+    View -> Administrador --++: Mostrar mensaje de cancelación y revertir cambios
+end
+@enduml

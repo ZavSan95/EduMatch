@@ -1,0 +1,27 @@
+@startuml
+actor Estudiante
+boundary "SoporteTecnicoView" as View
+control "SoporteController" as Controller
+entity "MensajeSoporte" as Mensaje
+database "SoporteRepository" as Repository
+
+== Flujo principal ==
+Estudiante -> View --++: Acceder a la sección de soporte técnico
+View -> Controller --++: Solicitar formulario de contacto
+Controller -> View --++: Mostrar formulario de contacto
+Estudiante -> View --++: Escribir mensaje de soporte y enviar
+View -> Controller --++: Enviar mensaje de soporte
+Controller -> Mensaje --++: Validar mensaje
+Mensaje -> Controller --++: Mensaje válido
+Controller -> Repository --++: Registrar mensaje de soporte
+Repository -> Controller --++: Confirmación de registro
+Controller -> View --++: Confirmación de mensaje enviado
+View -> Estudiante --++: Mostrar confirmación de mensaje enviado
+
+== Flujo alternativo ==
+
+alt [Error Error técnico al enviar el mensaje]
+    Controller -> View --++: Mostrar mensaje de error
+    View -> Estudiante --++: Mostrar mensaje de error y proporcionar instrucciones alternativas
+end
+@enduml
