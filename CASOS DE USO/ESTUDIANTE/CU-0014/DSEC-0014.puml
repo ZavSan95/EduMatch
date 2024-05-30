@@ -12,17 +12,14 @@ Controller -> Repository --++: Obtener datos de preferencias
 Repository -> Controller --++: Enviar datos de preferencias
 Controller -> View --++: Mostrar preferencias actuales
 
-Estudiante -> View --++: Seleccionar opción para editar preferencias
 View -> Controller --++: Solicitar formulario de edición
 Controller -> View --++: Mostrar formulario de edición
-Estudiante -> View --++: Realizar cambios en las preferencias y enviar
 View -> Controller --++: Enviar datos modificados
 Controller -> Preferencias --++: Validar información modificada
 Preferencias -> Controller --++: Información válida
 Controller -> Repository --++: Actualizar datos de preferencias
 Repository -> Controller --++: Confirmación de actualización
 Controller -> View --++: Confirmación de cambios
-View -> Estudiante --++: Mostrar confirmación de cambios realizados
 
 == Flujo alternativo ==
 

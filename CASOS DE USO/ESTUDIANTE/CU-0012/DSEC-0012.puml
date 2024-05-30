@@ -11,12 +11,10 @@ View -> Controller --++: Solicitar historial de transacciones
 Controller -> Repository --++: Obtener datos del historial
 Repository -> Controller --++: Enviar datos de transacciones
 Controller -> View --++: Mostrar historial de transacciones
-View -> Estudiante --++: Mostrar historial de transacciones
 
 == Flujo alternativo ==
 
 alt [his Historial de transacciones está vacío]
     Controller -> View --++: Mostrar mensaje de historial vacío
-    View -> Estudiante --++: Mostrar mensaje de historial vacío
 end
 @enduml

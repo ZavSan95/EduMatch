@@ -11,19 +11,16 @@ View -> Controller --++: Solicitar lista de profesores
 Controller -> Repository --++: Obtener lista de profesores
 Repository -> Controller --++: Enviar lista de profesores
 Controller -> View --++: Mostrar lista de profesores
-Administrador -> View --++: Seleccionar profesor para ver o modificar
 View -> Controller --++: Solicitar detalles del profesor
 Controller -> Repository --++: Obtener detalles del profesor
 Repository -> Controller --++: Enviar detalles del profesor
 Controller -> View --++: Mostrar detalles del profesor
-Administrador -> View --++: Realizar modificaciones en la información del profesor
 View -> Controller --++: Enviar datos modificados
 Controller -> Model --++: Validar información modificada
 Model -> Controller --++: Información válida
 Controller -> Repository --++: Actualizar información del profesor
 Repository -> Controller --++: Confirmación de actualización
 Controller -> View --++: Confirmación de cambios
-View -> Administrador --++: Mostrar confirmación de cambios realizados
 
 == Flujo alternativo ==
 alt [A Administrador decide eliminar al profesor]
@@ -32,7 +29,6 @@ alt [A Administrador decide eliminar al profesor]
     Controller -> Repository --++: Eliminar información del profesor
     Repository -> Controller --++: Confirmación de eliminación
     Controller -> View --++: Confirmación de eliminación
-    View -> Administrador --++: Mostrar mensaje de eliminación exitosa
 end
 
 alt [A Administrador encuentra errores o datos inconsistentes]
@@ -43,6 +39,5 @@ alt [A Administrador encuentra errores o datos inconsistentes]
     Controller -> Repository --++: Actualizar información corregida
     Repository -> Controller --++: Confirmación de actualización
     Controller -> View --++: Confirmación de cambios
-    View -> Administrador --++: Mostrar confirmación de cambios realizados
 end
 @enduml

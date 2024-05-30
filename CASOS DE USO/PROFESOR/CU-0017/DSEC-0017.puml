@@ -9,19 +9,16 @@ database "ProfesoresRepository" as Repository
 Administrador -> View --++: Acceder a la sección de alta de profesor
 View -> Controller --++: Solicitar formulario de alta de profesor
 Controller -> View --++: Mostrar formulario de alta de profesor
-Administrador -> View --++: Completar formulario con información del profesor
 View -> Controller --++: Enviar formulario completo
 Controller -> Model --++: Validar información
 Model -> Controller --++: Información válida
 Controller -> Repository --++: Registrar nuevo profesor
 Repository -> Controller --++: Confirmación de registro
 Controller -> View --++: Confirmación de alta realizada
-View -> Administrador --++: Mostrar confirmación de alta realizada
 
 == Flujo alternativo ==
 alt [D Documentos cargados no son válidos o están incompletos]
     Model -> Controller --++: Información no válida
     Controller -> View --++: Mostrar mensaje de error y solicitar recarga de documentos
-    View -> Administrador --++: Mostrar mensaje de error y volver a cargar documentos
 end
 @enduml

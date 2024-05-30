@@ -16,7 +16,6 @@ Repository --> Controller : Devolver perfil del estudiante
 deactivate Repository
 Controller --> View : Mostrar perfil del estudiante
 deactivate Controller
-Estudiante -> View : Realizar modificaciones en el perfil
 View -> Controller : Enviar perfil modificado
 activate Controller
 Controller -> Model : Validar información modificada
@@ -29,7 +28,6 @@ Repository --> Controller : Confirmación de actualización
 deactivate Repository
 Controller -> View : Mostrar mensaje de confirmación
 deactivate Controller
-View -> Estudiante : Mostrar mensaje de perfil modificado exitosamente
 deactivate View
 
 == Flujo alternativo ==
@@ -38,7 +36,6 @@ alt Información no válida
     deactivate Model
     Controller -> View : Mostrar mensaje de error
     activate View
-    View -> Estudiante : Mostrar mensaje de error y volver a las modificaciones
     deactivate View
 end
 

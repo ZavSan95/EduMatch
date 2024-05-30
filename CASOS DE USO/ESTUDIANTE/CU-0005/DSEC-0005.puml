@@ -16,7 +16,6 @@ Profesor --> Controller : Fechas y horas disponibles
 deactivate Profesor
 Controller --> View : Mostrar fechas y horas disponibles para la reserva
 deactivate Controller
-Estudiante -> View : Seleccionar fecha y hora para la reserva
 View -> Controller : Enviar fecha y hora seleccionada
 activate Controller
 Controller -> Repository : Confirmar disponibilidad de la fecha y hora seleccionada
@@ -28,13 +27,11 @@ Repository --> Controller : Confirmación de reserva
 deactivate Repository
 Controller -> View : Mostrar confirmación de reserva
 deactivate Controller
-View -> Estudiante : Mostrar confirmación de reserva
 
 == Flujo alternativo ==
 alt Horario no disponible
     Controller -> View : Mostrar mensaje de error
     activate View
-    View -> Estudiante : Mostrar mensaje de error y volver al paso 3 del flujo principal
     deactivate View
 end
 

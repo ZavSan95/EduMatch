@@ -11,23 +11,19 @@ View -> Controller --++: Solicitar lista de alumnos
 Controller -> Repository --++: Obtener lista de alumnos
 Repository -> Controller --++: Enviar lista de alumnos
 Controller -> View --++: Mostrar lista de alumnos
-Profesor -> View --++: Seleccionar alumno a calificar
 View -> Controller --++: Solicitar formulario de calificación
 Controller -> View --++: Mostrar formulario de calificación
-Profesor -> View --++: Completar formulario y enviar calificación
 View -> Controller --++: Enviar calificación
 Controller -> Calificacion --++: Validar calificación
 Calificacion -> Controller --++: Calificación válida
 Controller -> Repository --++: Registrar calificación
 Repository -> Controller --++: Confirmación de registro
 Controller -> View --++: Confirmación de calificación registrada
-View -> Profesor --++: Mostrar confirmación de calificación
 
 == Flujo alternativo ==
 alt [P Profesor decide cancelar la calificación]
     Profesor -> View --++: Cancelar calificación
     View -> Controller --++: Solicitar cancelación
     Controller -> View --++: Confirmación de cancelación
-    View -> Profesor --++: Mostrar mensaje de cancelación
 end
 @enduml

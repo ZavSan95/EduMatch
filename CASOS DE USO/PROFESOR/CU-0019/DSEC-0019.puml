@@ -10,21 +10,17 @@ View -> Controller --++: Solicitar lista de profesores
 Controller -> Repository --++: Obtener lista de profesores
 Repository -> Controller --++: Enviar lista de profesores
 Controller -> View --++: Mostrar lista de profesores
-Administrador -> View --++: Seleccionar profesor a eliminar
 View -> Controller --++: Solicitar confirmación de eliminación
 Controller -> View --++: Mostrar ventana de confirmación
-Administrador -> View --++: Confirmar eliminación
 View -> Controller --++: Enviar confirmación
 Controller -> Repository --++: Eliminar información del profesor
 Repository -> Controller --++: Confirmación de eliminación
 Controller -> View --++: Confirmación de eliminación realizada
-View -> Administrador --++: Mostrar confirmación de eliminación
 
 == Flujo alternativo ==
 alt [A Administrador decide cancelar la eliminación]
     Administrador -> View --++: Cancelar eliminación
     View -> Controller --++: Solicitar cancelación
     Controller -> View --++: Confirmación de cancelación
-    View -> Administrador --++: Mostrar mensaje de cancelación
 end
 @enduml
