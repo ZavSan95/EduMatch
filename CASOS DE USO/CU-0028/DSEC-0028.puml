@@ -1,0 +1,61 @@
+@startuml
+actor Usuario
+boundary "LoginView" as View
+control "LoginController" as Controller
+entity "Usuario" as Model
+database "UsuarioRepository" as Repository
+
+== Flujo principal ==
+Usuario -> View : Acceder a la página de inicio de sesión
+activate View
+View -> Usuario : Mostrar formulario de inicio de sesión
+Usuario -> View : Ingresar correo electrónico y contraseña
+View -> Controller : Enviar credenciales
+activate Controller
+Controller -> Repository : Validar credenciales
+activate Repository
+Repository -> Model : Buscar usuario por correo electrónico
+activate Model
+Model --> Repository : Retornar usuario encontrado
+deactivate Model
+Repository --> Controller : Retornar datos de usuario
+deactivate Repository
+alt Usuario es estudiante
+    Controller -> View : Redirigir a la interfaz de estudiante
+else Usuario es profesor
+    Controller -> View : Redirigir a la interfaz de profesor
+end
+deactivate Controller
+deactivate View
+
+== Flujo alternativo 1 (Credenciales incorrectas) ==
+Usuario -> View : Ingresar credenciales incorrectas
+View -> Controller : Enviar credenciales
+activate Controller
+Controller -> Repository : Validar credenciales
+activate Repository
+Repository -> Model : Buscar usuario por correo electrónico
+activate Model
+Model --> Repository : Usuario no encontrado
+deactivate Model
+Repository --> Controller : Retornar error
+deactivate Repository
+Controller -> View : Mostrar mensaje de error (credenciales incorrectas)
+deactivate Controller
+
+
+== Flujo alternativo 2 (Cuenta no verificada) ==
+Usuario -> View : Ingresar correo y contraseña
+View -> Controller : Enviar credenciales
+activate Controller
+Controller -> Repository : Validar credenciales
+activate Repository
+Repository -> Model : Buscar usuario por correo electrónico
+activate Model
+Model --> Repository : Retornar usuario no verificado
+deactivate Model
+Repository --> Controller : Retornar datos de usuario (no verificado)
+deactivate Repository
+Controller -> View : Mostrar mensaje de cuenta no verificada
+deactivate Controller
+@enduml
