@@ -1,46 +1,91 @@
 @startuml
+
 actor Estudiante
-boundary "ModificarPerfilEstudianteView" as View
+boundary "GestionarEstudianteView" as View
 control "EstudiantesController" as Controller
 entity "Estudiante" as Model
 database "EstudiantesRepository" as Repository
 
 == Flujo principal ==
-Estudiante -> View : Acceder a la opción para modificar perfil
+Estudiante -> View : Acceder a la sección de gestión de estudiantes
 activate View
-View -> Controller : Solicitar perfil existente del estudiante
-activate Controller
-Controller -> Repository : Cargar perfil existente del estudiante
-activate Repository
-Repository --> Controller : Devolver perfil del estudiante
-deactivate Repository
-Controller --> View : Mostrar perfil del estudiante
-deactivate Controller
-Estudiante -> View : Realizar modificaciones en el perfil
-View -> Controller : Enviar perfil modificado
-activate Controller
-Controller -> Model : Validar información modificada
-activate Model
-Model --> Controller : Información válida
-deactivate Model
-Controller -> Repository : Actualizar perfil del estudiante
-activate Repository
-Repository --> Controller : Confirmación de actualización
-deactivate Repository
-Controller -> View : Mostrar mensaje de confirmación
-deactivate Controller
-View -> Estudiante : Mostrar mensaje de perfil modificado exitosamente
-deactivate View
 
-== Flujo alternativo ==
-alt Información no válida
-    activate Model
-    Model --> Controller : Información no válida
-    deactivate Model
-    Controller -> View : Mostrar mensaje de error
+View -> Controller : Solicitar opciones de gestión
+activate Controller
+
+Controller -> Repository : Obtener opciones de gestión
+activate Repository
+Repository --> Controller : Opciones de gestión disponibles
+deactivate Repository
+
+Controller --> View : Opciones de gestión disponibles
+deactivate Controller
+
+activate View
+
+View -> Controller : Opción seleccionada
+activate Controller
+
+alt Ver cuenta de estudiante
+    Controller -> Repository : Solicitar información del estudiante
+    activate Repository
+    Repository --> Controller : Información del estudiante
+    deactivate Repository
+
+    Controller --> View : Mostrar información del estudiante
+    deactivate Controller
+
+else Modificar cuenta de estudiante
+    Controller -> Repository : Solicitar datos actuales del estudiante
+    activate Repository
+    Repository --> Controller : Datos actuales del estudiante
+    deactivate Repository
+
+    Controller --> View : Mostrar formulario de edición con datos actuales
+    deactivate Controller
+
     activate View
-    View -> Estudiante : Mostrar mensaje de error y volver a las modificaciones
-    deactivate View
+
+    View -> Controller : Cambios recibidos
+    activate Controller
+
+    Controller -> Model : Actualizar información del estudiante
+    activate Model
+    Model -> Repository : Guardar cambios
+    Repository --> Model : Confirmación de cambios guardados
+    deactivate Repository
+
+    Model --> Controller : Confirmación de actualización
+    deactivate Model
+
+    Controller --> View : Confirmación de actualización
+    deactivate Controller
+
+
+else Eliminar cuenta de estudiante
+    Controller -> Repository : Confirmar eliminación
+    activate Repository
+    Repository --> Controller : Confirmación de eliminación
+    deactivate Repository
+
+    Controller --> View : Confirmación de eliminación
+    deactivate Controller
+
+    activate View
+
+    View -> Controller : Acción de eliminación confirmada
+    activate Controller
+
+    Controller -> Repository : Eliminar cuenta de estudiante
+    activate Repository
+    Repository --> Controller : Confirmación de eliminación
+    deactivate Repository
+
+    Controller --> View : Confirmación de eliminación
+    deactivate Controller
+
 end
+
+deactivate View
 
 @enduml

@@ -17,7 +17,6 @@ Repository --> Controller : Lista de turnos reservados
 deactivate Repository
 Controller --> View : Mostrar lista de turnos reservados
 deactivate Controller
-Estudiante -> View : Seleccionar turno a cancelar
 View -> Controller : Enviar turno seleccionado
 activate Controller
 Controller -> Repository : Obtener detalles del turno seleccionado
@@ -26,7 +25,6 @@ Repository --> Controller : Detalles del turno
 deactivate Repository
 Controller --> View : Mostrar detalles del turno y opción para cancelarlo
 deactivate Controller
-Estudiante -> View : Confirmar cancelación del turno
 View -> Controller : Enviar confirmación de cancelación
 activate Controller
 Controller -> Repository : Cancelar turno seleccionado
@@ -43,7 +41,6 @@ Profesor --> Controller : Confirmación de notificación
 deactivate Profesor
 Controller --> View : Mostrar mensaje de cancelación exitosa
 deactivate Controller
-View -> Estudiante : Mostrar mensaje de cancelación exitosa
 
 == Flujo alternativo ==
 alt Cancelación dentro de la ventana de tiempo especificada
@@ -64,10 +61,6 @@ alt Cancelación dentro de la ventana de tiempo especificada
     deactivate Profesor
     Controller --> View : Mostrar mensaje de cancelación exitosa dentro de la ventana de tiempo especificada
     deactivate Controller
-    View -> Estudiante : Mostrar mensaje de cancelación exitosa dentro de la ventana de tiempo especificada
-else
-    Estudiante -> View : Cancelación fuera de la ventana de tiempo especificada
-    View -> Estudiante : Mostrar mensaje de error indicando que no se puede cancelar el turno fuera de la ventana de tiempo especificada
 end
 
 @enduml

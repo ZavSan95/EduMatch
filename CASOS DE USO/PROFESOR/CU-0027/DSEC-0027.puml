@@ -1,9 +1,9 @@
 @startuml
 actor Administrador
 boundary "ComunidadView" as View
-control "ActividadesController" as Controller
-entity "Actividad" as Model
-database "ActividadesRepository" as Repository
+control "PosteosController" as Controller
+entity "Posteo" as Model
+database "PosteosRepository" as Repository
 
 == Flujo principal ==
 Administrador -> View : Acceder a la comunidad general de EduMatch
@@ -11,8 +11,6 @@ activate View
 View -> Controller : Cargar actividad planificada
 activate Controller
 Controller -> View : Mostrar formulario de carga de actividad
-View -> Administrador : Completar formulario con parámetros de la actividad
-Administrador -> View : Enviar formulario completo
 View -> Controller : Enviar datos de la actividad
 Controller -> Model : Crear nueva actividad con datos
 activate Model
@@ -24,7 +22,6 @@ Repository --> Controller : Confirmación de guardado
 deactivate Repository
 Controller -> View : Mostrar mensaje de actividad generada con éxito
 deactivate Controller
-View -> Administrador : Mostrar mensaje de éxito
 deactivate View
 
 @enduml

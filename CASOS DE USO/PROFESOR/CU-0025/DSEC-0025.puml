@@ -10,10 +10,8 @@ View -> Controller --++: Solicitar estadísticas de desempeño
 Controller -> Estadisticas --++: Obtener estadísticas de desempeño
 Estadisticas -> Controller --++: Enviar estadísticas de desempeño
 Controller -> View --++: Mostrar estadísticas de desempeño
-Profesor -> View --++: Filtrar y personalizar estadísticas
 View -> Controller --++: Aplicar filtros y personalizaciones
 Controller -> Estadisticas --++: Actualizar estadísticas con filtros
 Estadisticas -> Controller --++: Enviar estadísticas filtradas
 Controller -> View --++: Mostrar estadísticas filtradas
-Profesor -> View --++: Analizar información presentada
 @enduml

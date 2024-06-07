@@ -11,7 +11,6 @@ View -> Controller : Solicitar confirmación de eliminación
 activate Controller
 Controller -> View : Mostrar ventana de confirmación
 deactivate Controller
-Estudiante -> View : Confirmar eliminación del perfil
 View -> Controller : Enviar confirmación
 activate Controller
 Controller -> Repository : Eliminar perfil del estudiante
@@ -20,7 +19,7 @@ Repository --> Controller : Confirmación de eliminación
 deactivate Repository
 Controller -> View : Mostrar mensaje de confirmación
 deactivate Controller
-View -> Estudiante : Mostrar mensaje de perfil eliminado exitosamente
+
 deactivate View
 
 == Flujo alternativo ==
@@ -30,7 +29,6 @@ alt El estudiante cancela la operación
     activate Controller
     Controller -> View : Mostrar mensaje de cancelación
     deactivate Controller
-    View -> Estudiante : Mostrar mensaje de cancelación y volver a la opción de eliminar perfil
 end
 
 @enduml

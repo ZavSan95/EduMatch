@@ -9,12 +9,10 @@ database "PostulacionesRepository" as Repository
 Estudiante -> View --++: Acceder a la función de postulación a tutor
 View -> Controller --++: Solicitar formulario de postulación
 Controller -> View --++: Mostrar formulario de postulación
-Estudiante -> View --++: Completar formulario con información personal
 View -> Controller --++: Enviar datos de la postulación
 Controller -> Postulacion --++: Validar información
 Postulacion -> Controller --++: Información válida
 Controller -> Repository --++: Registrar postulación
 Repository -> Controller --++: Confirmación de registro
 Controller -> View --++: Confirmación de postulación enviada
-View -> Estudiante --++: Mostrar confirmación de postulación enviada
 @enduml

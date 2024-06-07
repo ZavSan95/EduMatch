@@ -9,14 +9,12 @@ database "CursosRepository" as Repository
 Profesor -> View --++: Acceder a la sección de subir curso
 View -> Controller --++: Solicitar formulario de curso
 Controller -> View --++: Mostrar formulario de curso
-Profesor -> View --++: Completar formulario con detalles del curso
 View -> Controller --++: Enviar datos del curso
 Controller -> Curso --++: Validar datos del curso
 Curso -> Controller --++: Datos válidos
 Controller -> Repository --++: Registrar curso
 Repository -> Controller --++: Confirmación de registro
 Controller -> View --++: Confirmación de curso subido
-View -> Profesor --++: Mostrar confirmación de curso subido
 
 == Flujo alternativo ==
 alt [P Profesor decide guardar el curso como borrador]
@@ -25,6 +23,5 @@ alt [P Profesor decide guardar el curso como borrador]
     Controller -> Repository --++: Registrar curso como borrador
     Repository -> Controller --++: Confirmación de registro como borrador
     Controller -> View --++: Confirmación de curso guardado como borrador
-    View -> Profesor --++: Mostrar confirmación de curso guardado como borrador
 end
 @enduml

@@ -1,20 +1,18 @@
 @startuml
-actor Usuario
+actor Profesor
 boundary "SoporteTecnicoView" as View
 control "SoporteController" as Controller
 entity "TicketSoporte" as Ticket
 database "SoporteRepository" as Repository
 
 == Flujo principal ==
-Usuario -> View --++: Acceder a la sección de soporte técnico
+Profesor -> View --++: Acceder a la sección de soporte técnico
 View -> Controller --++: Solicitar formulario de soporte
 Controller -> View --++: Mostrar formulario de soporte
-Usuario -> View --++: Completar formulario con detalles del problema
 View -> Controller --++: Enviar solicitud de soporte
 Controller -> Ticket --++: Generar ticket de soporte
 Ticket -> Controller --++: Ticket generado
 Controller -> Repository --++: Registrar ticket de soporte
 Repository -> Controller --++: Confirmación de registro
 Controller -> View --++: Confirmación de solicitud recibida
-View -> Usuario --++: Mostrar confirmación de solicitud recibida
 @enduml
